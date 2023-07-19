@@ -1,0 +1,56 @@
+package com.bladoae.pokedex.data.di
+
+import com.bladoae.pokedex.BuildConfig
+import com.bladoae.pokedex.data.apiservice.PokeDexApiService
+import com.bladoae.pokedex.data.apiservice.PokeDexApiServiceImp
+import com.bladoae.pokedex.data.repository.PokeDexRepositoryImp
+import com.bladoae.pokedex.domain.repository.PokeDexRepository
+import com.bladoae.pokedex.requestmanager.ApiService
+import com.bladoae.pokedex.requestmanager.requestmanager.ServiceGenerator
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
+import javax.inject.Singleton
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
+
+    @Provides
+    @Singleton
+    @Named("baseBackendUrl")
+    fun baseBackendUrlProvider(): String = BuildConfig.BASE_BE_URL
+
+    @Provides
+    @Singleton
+    fun provideApiService(
+        @Named("baseBackendUrl") baseBackendUrl: String
+    ): ApiService {
+        return ServiceGenerator(baseBackendUrl).createService()
+    }
+
+    @Provides
+    @Singleton
+    fun providePokeDexApiDataSource(
+        service: ApiService
+    ): PokeDexApiService {
+        return PokeDexApiServiceImp(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProkeDexRepository(
+        pokeDexApiService: PokeDexApiService
+    ): PokeDexRepository {
+        return PokeDexRepositoryImp(pokeDexApiService)
+    }
+
+}

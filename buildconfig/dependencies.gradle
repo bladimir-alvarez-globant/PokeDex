@@ -1,0 +1,14 @@
+apply from: "${rootProject.getRootDir()}/buildconfig/versions.gradle"
+apply from: "${rootProject.getRootDir()}/buildconfig/libpaths.gradle"
+
+ext {
+    network_dependencies = [
+            // retrofit
+            [configuration: "api", dependency: retrofit2],
+            [configuration: "api", dependency: retrofit2_converter]
+    ]
+
+    hilt_dependecies = [
+            [configuration: "api", dependency: hilt]
+    ]
+}

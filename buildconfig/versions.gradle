@@ -1,0 +1,10 @@
+ext {
+    // Retrofit
+    retrofit_version = '2.9.0'
+
+    // Dagger
+    dagger_version = '2.38.1'
+
+    // Hilt
+    hilt_version = '2.44'
+}

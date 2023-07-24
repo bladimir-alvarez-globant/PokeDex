@@ -3,8 +3,9 @@ package com.bladoae.pokedex.data.di
 import com.bladoae.pokedex.BuildConfig
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
 import com.bladoae.pokedex.data.apiservice.PokeDexApiServiceImp
-import com.bladoae.pokedex.data.repository.PokeDexRepositoryImp
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
+import com.bladoae.pokedex.domain.usecase.GetPokemonListUseCase
+import com.bladoae.pokedex.domain.usecase.GetPokemonListUseCaseImpl
 import com.bladoae.pokedex.requestmanager.ApiService
 import com.bladoae.pokedex.requestmanager.requestmanager.ServiceGenerator
 import dagger.Module
@@ -47,10 +48,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideProkeDexRepository(
-        pokeDexApiService: PokeDexApiService
-    ): PokeDexRepository {
-        return PokeDexRepositoryImp(pokeDexApiService)
+    fun provideGetPokeDexListUseCase(
+        pokeDexRepository: PokeDexRepository,
+        dispatcher: CoroutineContext
+    ): GetPokemonListUseCase {
+        return GetPokemonListUseCaseImpl(pokeDexRepository, dispatcher)
     }
 
 }

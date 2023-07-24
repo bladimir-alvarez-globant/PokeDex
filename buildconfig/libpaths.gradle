@@ -5,4 +5,9 @@ ext {
 
     // hilt
     hilt = "com.google.dagger:hilt-android:${hilt_version}"
+
+    // jetpack compose
+    compose_ui = "androidx.compose.ui:ui:${compose_version}"
+    compose_material = "androidx.compose.material:material:${compose_version}"
+    compose_ui_tooling = "androidx.compose.ui:ui-tooling:${compose_version}"
 }

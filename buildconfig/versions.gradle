@@ -7,4 +7,7 @@ ext {
 
     // Hilt
     hilt_version = '2.44'
+
+    // Jetpack Compose
+    compose_version = '1.0.0'
 }

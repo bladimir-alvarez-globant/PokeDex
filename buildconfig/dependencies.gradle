@@ -3,12 +3,17 @@ apply from: "${rootProject.getRootDir()}/buildconfig/libpaths.gradle"
 
 ext {
     network_dependencies = [
-            // retrofit
             [configuration: "api", dependency: retrofit2],
             [configuration: "api", dependency: retrofit2_converter]
     ]
 
     hilt_dependecies = [
             [configuration: "api", dependency: hilt]
+    ]
+
+    compose_dependecies = [
+            [configuration: "api", dependency: compose_ui],
+            [configuration: "api", dependency: compose_material],
+            [configuration: "api", dependency: compose_ui_tooling]
     ]
 }

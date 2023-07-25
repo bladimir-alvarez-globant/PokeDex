@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.single
 
 class GetPokemonDetailedListUseCaseImpl @Inject constructor(
@@ -42,7 +43,16 @@ class GetPokemonDetailedListUseCaseImpl @Inject constructor(
                     } else {
                         Resource.Error<List<Pokemon?>?>(message = response.message ?: "", data = listOf())
                     }
-                }.collect { response ->
+                }
+                .onEach { response ->
+                    if(response is Resource.Success) {
+                        response.data?.let { list ->
+                            val data = list.filterNotNull()
+                            pokeDexRepository.savePokemonList(data)
+                        }
+                    }
+                }
+                .collect { response ->
                     emit(response)
                 }
         }.flowOn(dispatcher)

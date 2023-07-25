@@ -4,8 +4,10 @@ import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
 import com.bladoae.pokedex.domain.model.Pokemon
 import com.bladoae.pokedex.domain.model.toPokemon
+import com.bladoae.pokedex.domain.model.toPokemonEntityList
 import com.bladoae.pokedex.domain.model.toPokemonList
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
+import com.bladoaepokedex.databasemanager.daos.PokemonDao
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.map
 
 class PokeDexRepositoryImp @Inject constructor(
     private val pokeDexApiService: PokeDexApiService,
+    private val pokemonDao: PokemonDao,
     private val dispatcher: CoroutineContext
 ) : PokeDexRepository {
     override suspend fun getPokemonList(limit: Int, offSet: Int): Flow<Resource<List<Pokemon>>> {
@@ -51,5 +54,14 @@ class PokeDexRepositoryImp @Inject constructor(
                     emit(it)
                 }
         }.flowOn(dispatcher)
+    }
+
+    override suspend fun savePokemonList(items: List<Pokemon>) {
+        pokemonDao.insertPokemon(items.toPokemonEntityList())
+    }
+
+    override suspend fun getPokemonByName(name: String): Pokemon? {
+        val response = pokemonDao.selectPokemon(name)
+        return response?.toPokemon()
     }
 }

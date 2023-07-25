@@ -1,4 +1,5 @@
 ext {
+    kotlin_version = "1.7.20"
     // Retrofit
     retrofit_version = '2.9.0'
 
@@ -10,4 +11,15 @@ ext {
 
     // Jetpack Compose
     compose_version = '1.0.0'
+
+    // Glide
+    glide_version = '4.12.0'
+    glide_compose_version = '1.0.0-alpha.1'
+
+    // Room
+    room_version = '2.4.0'
+
+    //Moshi
+    moshi_version = '1.11.0'
+    assertj_version = '3.19.0'
 }

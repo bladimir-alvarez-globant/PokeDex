@@ -8,4 +8,8 @@ interface PokeDexRepository {
     suspend fun getPokemonList(limit: Int, offSet: Int) : Flow<Resource<List<Pokemon>>>
 
     suspend fun getPokemonDetail(name:String) : Flow<Resource<Pokemon>>
+
+    suspend fun savePokemonList(items: List<Pokemon>)
+
+    suspend fun getPokemonByName(name: String): Pokemon?
 }

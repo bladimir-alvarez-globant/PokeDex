@@ -1,6 +1,6 @@
 package com.bladoae.pokedex.data.di
 
-import com.bladoae.pokedex.domain.usecase.GetPokemonListUseCase
+import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCase
 import com.bladoae.pokedex.presentation.pokemonlist.PokemonListViewModel
 import dagger.Module
 import dagger.Provides
@@ -11,7 +11,7 @@ import dagger.hilt.android.components.ActivityComponent
 @InstallIn(ActivityComponent::class)
 object ViewModelModule {
     @Provides
-    fun providePokemonListViewModel(getPokemonListUseCase: GetPokemonListUseCase): PokemonListViewModel {
-        return PokemonListViewModel(getPokemonListUseCase)
+    fun providePokemonListViewModel(getPokemonDetailedListUseCaseImpl: GetPokemonDetailedListUseCase): PokemonListViewModel {
+        return PokemonListViewModel(getPokemonDetailedListUseCaseImpl)
     }
 }

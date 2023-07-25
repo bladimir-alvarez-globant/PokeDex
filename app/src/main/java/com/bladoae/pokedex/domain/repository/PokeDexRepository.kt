@@ -11,5 +11,5 @@ interface PokeDexRepository {
 
     suspend fun savePokemonList(items: List<Pokemon>)
 
-    suspend fun getPokemonByName(name: String): Pokemon?
+    suspend fun getPokemonByName(name: String): Flow<Pokemon?>
 }

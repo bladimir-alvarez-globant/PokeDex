@@ -27,8 +27,16 @@ class PokemonListActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         pokemonListViewModel.pokemonList.observe(this, ::handlePokemonList)
+        pokemonListViewModel.pokemon.observe(this, ::handlePokemon)
 
         pokemonListViewModel.getPokemonList()
+    }
+
+    private fun handlePokemon(pokemon: Pokemon?) {
+        pokemon?.let { data ->
+            val items = listOf(data)
+            setupContent(items)
+        }
     }
 
     private fun handlePokemonList(resource: Resource<List<Pokemon?>?>) {
@@ -50,11 +58,11 @@ class PokemonListActivity : ComponentActivity() {
     }
 
     private fun onSearch(value: String) {
-
+        pokemonListViewModel.getPokemonByName(value)
     }
 
     private fun onSelectPokemon(pokemon: Pokemon) {
-
+        Toast.makeText(this, pokemon.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupContent(items: List<Pokemon>) {

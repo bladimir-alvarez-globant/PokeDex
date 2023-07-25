@@ -3,12 +3,39 @@ apply from: "${rootProject.getRootDir()}/buildconfig/libpaths.gradle"
 
 ext {
     network_dependencies = [
-            // retrofit
             [configuration: "api", dependency: retrofit2],
             [configuration: "api", dependency: retrofit2_converter]
     ]
 
     hilt_dependecies = [
-            [configuration: "api", dependency: hilt]
+            [configuration: "api", dependency: hilt],
+            [configuration: "kapt", dependency: hilt_compiler]
+    ]
+
+    compose_dependecies = [
+            [configuration: "api", dependency: compose_ui],
+            [configuration: "api", dependency: compose_material],
+            [configuration: "api", dependency: compose_ui_tooling]
+    ]
+
+    glide_dependecies = [
+            [configuration: "api", dependency: glide],
+            [configuration: "api", dependency: glide_compose],
+            [configuration: "kapt", dependency: glide_compiler]
+    ]
+
+    room_dependencies = [
+            // Room
+            [configuration: "kapt", dependency: room_compiler],
+            [configuration: "api", dependency: room_coroutines],
+            [configuration: "api", dependency: room_lib]
+    ]
+
+    moshi_dependencies = [
+            [configuration: "api", dependency: moshi],
+            [configuration: "kapt", dependency: moshi_codegen],
+            [configuration: "api", dependency: moshi_adapters],
+            [configuration: "api", dependency: kotlin_reflect],
+            [configuration: "api", dependency: assertj]
     ]
 }

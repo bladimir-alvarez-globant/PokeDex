@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 apply from: "${rootProject.getRootDir()}/buildconfig/dependencies.gradle"
 
 android {

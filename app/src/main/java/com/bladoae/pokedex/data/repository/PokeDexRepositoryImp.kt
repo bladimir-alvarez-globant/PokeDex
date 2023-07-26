@@ -3,6 +3,7 @@ package com.bladoae.pokedex.data.repository
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
 import com.bladoae.pokedex.domain.model.Pokemon
+import com.bladoae.pokedex.domain.model.fromListEntityToPokemonList
 import com.bladoae.pokedex.domain.model.toPokemon
 import com.bladoae.pokedex.domain.model.toPokemonEntityList
 import com.bladoae.pokedex.domain.model.toPokemonList
@@ -11,8 +12,6 @@ import com.bladoaepokedex.databasemanager.daos.PokemonDao
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -62,11 +61,11 @@ class PokeDexRepositoryImp @Inject constructor(
         pokemonDao.insertPokemon(items.toPokemonEntityList())
     }
 
-    override suspend fun getPokemonByName(name: String): Flow<Pokemon?> {
+    override suspend fun getPokemonByName(name: String): Flow<List<Pokemon?>?> {
         return flow {
             val response = pokemonDao.selectPokemon(name)
             val pokemon = if(response.isNotEmpty()) {
-                response.first().toPokemon()
+                response.fromListEntityToPokemonList()
             } else {
                 null
             }

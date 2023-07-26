@@ -32,10 +32,9 @@ class PokemonListActivity : ComponentActivity() {
         pokemonListViewModel.getPokemonList()
     }
 
-    private fun handlePokemon(pokemon: Pokemon?) {
+    private fun handlePokemon(pokemon: List<Pokemon?>?) {
         pokemon?.let { data ->
-            val items = listOf(data)
-            setupContent(items)
+            setupContent(data.filterNotNull())
         }
     }
 

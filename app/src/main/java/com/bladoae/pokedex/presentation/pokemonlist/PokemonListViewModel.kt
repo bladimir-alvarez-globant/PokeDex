@@ -31,8 +31,8 @@ class PokemonListViewModel @Inject constructor(
         }
     }
 
-    private val _pokemon = MutableLiveData<Pokemon?>()
-    val pokemon: LiveData<Pokemon?> = _pokemon
+    private val _pokemon = MutableLiveData<List<Pokemon?>?>()
+    val pokemon: LiveData<List<Pokemon?>?> = _pokemon
 
     fun getPokemonByName(name: String) {
         viewModelScope.launch {

@@ -16,3 +16,4 @@ rootProject.name = "PokedexApplication"
 include ':app'
 include ':framework:databasemanager'
 include ':framework:requestmanager'
+include ':base'

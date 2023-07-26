@@ -35,7 +35,19 @@ ext {
             [configuration: "api", dependency: moshi],
             [configuration: "kapt", dependency: moshi_codegen],
             [configuration: "api", dependency: moshi_adapters],
-            [configuration: "api", dependency: kotlin_reflect],
-            [configuration: "api", dependency: assertj]
+            [configuration: "api", dependency: kotlin_reflect]
+    ]
+
+    test_dependencies = [
+            [configuration: "testImplementation", dependency: junit],
+            [configuration: "testImplementation", dependency: mockwebserver],
+            [configuration: "api", dependency: coroutines_test],
+            [configuration: "api", dependency: arch_testing],
+            [configuration: "api", dependency: jupiter],
+            [configuration: "api", dependency: mockk],
+            [configuration: "api", dependency: assertj],
+            [configuration: "api", dependency: androidx_test_runner],
+            [configuration: "androidTestImplementation", dependency: androidx_test_ext_junit],
+            [configuration: "testImplementation", dependency: junit_kotlin],
     ]
 }

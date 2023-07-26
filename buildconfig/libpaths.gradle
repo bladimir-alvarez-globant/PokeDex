@@ -27,5 +27,16 @@ ext {
     moshi_codegen ="com.squareup.moshi:moshi-kotlin-codegen:${moshi_version}"    //kapt
     moshi_adapters ="com.squareup.moshi:moshi-adapters:${moshi_version}"
     kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
-    assertj ="org.assertj:assertj-core:${assertj_version}"
+
+    // junit 5
+    jupiter ="org.junit.jupiter:junit-jupiter-engine:${junit_version}"    //test_implementation
+    mockk ="io.mockk:mockk:${mock_version}"                               //test_implementation
+    assertj ="org.assertj:assertj-core:${assertj_version}"                //android_test_implementation
+    coroutines_test ="org.jetbrains.kotlinx:kotlinx-coroutines-test:${coroutines_test_version}"
+    arch_testing ="androidx.arch.core:core-testing:${core_testing_version}"
+    junit ="androidx.test.ext:junit-ktx:${androidx_junit_version}"
+    mockwebserver ="com.squareup.okhttp3:mockwebserver:${mockwebserver_version}"
+    androidx_test_runner = "androidx.test:runner:${androidx_test_runner_version}"
+    androidx_test_ext_junit = "androidx.test.ext:junit:${androidx_test_ext_junit_version}"
+    junit_kotlin = "junit:junit:${junit_kotlin_version}"
 }

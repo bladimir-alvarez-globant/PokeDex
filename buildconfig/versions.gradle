@@ -33,4 +33,5 @@ ext {
     mockwebserver_version = '4.10.0'
     androidx_test_runner_version = '1.4.0'
     androidx_test_ext_junit_version = '1.1.5'
+    junit_kotlin_version = '4.13.2'
 }

@@ -38,4 +38,5 @@ ext {
     mockwebserver ="com.squareup.okhttp3:mockwebserver:${mockwebserver_version}"
     androidx_test_runner = "androidx.test:runner:${androidx_test_runner_version}"
     androidx_test_ext_junit = "androidx.test.ext:junit:${androidx_test_ext_junit_version}"
+    junit_kotlin = "junit:junit:${junit_kotlin_version}"
 }

@@ -48,5 +48,6 @@ ext {
             [configuration: "api", dependency: assertj],
             [configuration: "api", dependency: androidx_test_runner],
             [configuration: "androidTestImplementation", dependency: androidx_test_ext_junit],
+            [configuration: "testImplementation", dependency: junit_kotlin],
     ]
 }

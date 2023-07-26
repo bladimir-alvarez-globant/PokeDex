@@ -98,10 +98,10 @@ class GetPokemonDetailedListUseCaseImplTest {
             pokeDexRepository.savePokemonList(pokemonList)
         } returns Unit
 
-        var actualResponse = listOf<Pokemon>()
+        var actualResponse = listOf<Pokemon?>()
         launch {
             getPokemonDetailedListUseCaseImpl()
-                .collect { response -> actualResponse = response.data?.filterNotNull() ?: listOf() }
+                .collect { response -> actualResponse = response.data ?: listOf() }
         }
 
         coVerify(exactly = 1) { pokeDexRepository.getPokemonList(LIMIT_POKEMON, OFFSET_POKEMON) }
@@ -112,7 +112,7 @@ class GetPokemonDetailedListUseCaseImplTest {
         )
         Assert.assertEquals(
             "Name must be $name.",
-            actualResponse.first().name,
+            actualResponse.first()?.name,
             name
         )
     }

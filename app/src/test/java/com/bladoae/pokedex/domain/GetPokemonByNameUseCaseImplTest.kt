@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -39,10 +40,12 @@ class GetPokemonByNameUseCaseImplTest {
     @MockK
     private lateinit var pokeDexRepository: PokeDexRepository
 
+    private val dispatcher = Dispatchers.Main
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        getPokemonByNameUseCaseImpl = GetPokemonByNameUseCaseImpl(pokeDexRepository, Dispatchers.IO)
+        getPokemonByNameUseCaseImpl = GetPokemonByNameUseCaseImpl(pokeDexRepository, dispatcher)
     }
 
     @After
@@ -51,7 +54,7 @@ class GetPokemonByNameUseCaseImplTest {
     }
 
     @Test
-    fun `when get pokemon by name response is success`() = runBlockingTest {
+    fun `when get pokemon by name response is success`() = runBlocking {
         val name = "Pikachu"
         val expectedResponse = listOf(
             Pokemon(
@@ -78,7 +81,7 @@ class GetPokemonByNameUseCaseImplTest {
         } returns flowOf(expectedResponse)
 
         var actualResponse = listOf<Pokemon>()
-        launch {
+        launch(dispatcher) {
             getPokemonByNameUseCaseImpl(name)
                 .collect { response -> actualResponse = response?.filterNotNull() ?: listOf() }
         }

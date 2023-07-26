@@ -33,10 +33,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -65,10 +68,12 @@ class PokeDexRepositoryImpTest {
     @MockK
     private lateinit var pokemonDao: PokemonDao
 
+    private val dispatcher = Dispatchers.Main
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        pokeDexRepositoryImp = PokeDexRepositoryImp(pokeDexApiService, pokemonDao, Dispatchers.IO)
+        pokeDexRepositoryImp = PokeDexRepositoryImp(pokeDexApiService, pokemonDao, dispatcher)
     }
 
     @After
@@ -77,7 +82,7 @@ class PokeDexRepositoryImpTest {
     }
 
     @Test
-    fun `when get pokemon list response is success`() = runBlockingTest {
+    fun `when get pokemon list response is success`() = runBlocking {
         val name = "Pikachu"
         val expectedResponse = Resource.Success(
             PokemonListResponse(
@@ -112,17 +117,17 @@ class PokeDexRepositoryImpTest {
         } returns flowOf(expectedResponse)
 
         var actualResponse = listOf<Pokemon>()
-        launch {
+        launch(dispatcher) {
             pokeDexRepositoryImp.getPokemonList(LIMIT_POKEMON, OFFSET_POKEMON)
                 .collect { response -> actualResponse = response.data ?: listOf() }
         }
 
         coVerify(exactly = 1) { pokeDexApiService.getPokemonList(LIMIT_POKEMON, OFFSET_POKEMON) }
-        TestCase.assertEquals(
+        assertEquals(
             expectedResponse.data?.results?.toPokemonList(),
             actualResponse
         )
-        Assert.assertEquals(
+        assertEquals(
             "Name must be $name.",
             actualResponse.first().name,
             name
@@ -130,7 +135,7 @@ class PokeDexRepositoryImpTest {
     }
 
     @Test
-    fun testSavePokemonList() = runBlockingTest {
+    fun testSavePokemonList() = runBlocking {
         // Prepare test data
         val pokemon = Pokemon(
             id = 12,
@@ -165,7 +170,7 @@ class PokeDexRepositoryImpTest {
     }
 
     @Test
-    fun `when get pokemon detail response is success`() = runBlockingTest {
+    fun `when get pokemon detail response is success`() = runBlocking {
         val name = "Pikachu"
         val expectedResponse = Resource.Success(
             PokemonDto(
@@ -196,17 +201,17 @@ class PokeDexRepositoryImpTest {
         } returns flowOf(expectedResponse)
 
         var actualResponse = Pokemon()
-        launch {
+        launch(dispatcher) {
             pokeDexRepositoryImp.getPokemonDetail(name)
-                .collect { response -> actualResponse = response.data ?: Pokemon() }
+                .collect { response -> response.data?.let { data -> actualResponse = data } }
         }
 
         coVerify(exactly = 1) { pokeDexApiService.getPokemonDetail(name) }
-        TestCase.assertEquals(
+        assertEquals(
             expectedResponse.data?.toPokemon(),
             actualResponse
         )
-        Assert.assertEquals(
+        assertEquals(
             "Name must be $name.",
             actualResponse.name,
             name
@@ -214,7 +219,7 @@ class PokeDexRepositoryImpTest {
     }
 
     @Test
-    fun `when get pokemon by name response is success`() = runBlockingTest {
+    fun `when get pokemon by name response is success`() = runBlocking {
         val name = "Pikachu"
         val expectedResponse = listOf(
             PokemonEntity(
@@ -241,17 +246,17 @@ class PokeDexRepositoryImpTest {
         } returns expectedResponse
 
         var actualResponse = listOf<Pokemon?>(Pokemon())
-        launch {
+        launch(dispatcher) {
             pokeDexRepositoryImp.getPokemonByName(name)
                 .collect { response -> actualResponse = response ?: listOf() }
         }
 
         coVerify(exactly = 1) { pokemonDao.selectPokemon(name) }
-        TestCase.assertEquals(
+        assertEquals(
             expectedResponse.fromListEntityToPokemonList(),
             actualResponse
         )
-        Assert.assertEquals(
+        assertEquals(
             "Name must be $name.",
             actualResponse.first()?.name,
             name

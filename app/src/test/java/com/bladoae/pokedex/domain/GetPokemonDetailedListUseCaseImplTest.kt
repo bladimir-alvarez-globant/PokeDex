@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -46,10 +47,12 @@ class GetPokemonDetailedListUseCaseImplTest {
     @MockK
     private lateinit var pokeDexRepository: PokeDexRepository
 
+    private val dispatcher = Dispatchers.Main
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        getPokemonDetailedListUseCaseImpl = GetPokemonDetailedListUseCaseImpl(pokeDexRepository, Dispatchers.IO)
+        getPokemonDetailedListUseCaseImpl = GetPokemonDetailedListUseCaseImpl(pokeDexRepository, dispatcher)
     }
 
     @After
@@ -58,7 +61,7 @@ class GetPokemonDetailedListUseCaseImplTest {
     }
 
     @Test
-    fun `when get pokemon detailed list use case response is success`() = runBlockingTest {
+    fun `when get pokemon detailed list use case response is success`() = runBlocking {
         val name = "Pikachu"
         val pokemon = Pokemon(
             id = 12,
@@ -99,7 +102,7 @@ class GetPokemonDetailedListUseCaseImplTest {
         } returns Unit
 
         var actualResponse = listOf<Pokemon?>()
-        launch {
+        launch(dispatcher) {
             getPokemonDetailedListUseCaseImpl()
                 .collect { response -> actualResponse = response.data ?: listOf() }
         }

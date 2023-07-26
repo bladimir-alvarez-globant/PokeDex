@@ -97,4 +97,44 @@ class PokemonListViewModelTest {
         )
     }
 
+    @Test
+    fun `when get pokemon by name response is success`() = runBlockingTest {
+        val name = "Pikachu"
+        val expectedResponse = listOf(
+            Pokemon(
+                id = 12,
+                name = "Pikachu",
+                abilities = listOf(
+                    Ability(
+                        name = "Poisson"
+                    )
+                ),
+                sprites = Sprites(
+                    "URL"
+                ),
+                types = listOf(
+                    Type(
+                        name = "Fire"
+                    )
+                )
+            )
+        )
+
+        coEvery {
+            getPokemonByNameUseCase(name)
+        } returns flowOf(expectedResponse)
+
+        viewModel.getPokemonByName(name)
+        viewModel.pokemon.observeForever {}
+
+        val actualResponse = viewModel.pokemon.value
+
+        assertEquals(expectedResponse, actualResponse)
+        Assert.assertEquals(
+            "Name must be Pikachu",
+            name,
+            actualResponse?.first()?.name,
+        )
+    }
+
 }

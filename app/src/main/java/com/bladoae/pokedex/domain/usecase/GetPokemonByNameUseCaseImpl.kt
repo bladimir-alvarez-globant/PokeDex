@@ -13,7 +13,7 @@ class GetPokemonByNameUseCaseImpl @Inject constructor(
     private val dispatcher: CoroutineContext
 ) : GetPokemonByNameUseCase {
 
-    override suspend fun invoke(name: String): Flow<Pokemon?> {
+    override suspend fun invoke(name: String): Flow<List<Pokemon?>?> {
         return flow {
             pokeDexRepository.getPokemonByName(name)
                 .collect { pokemon ->

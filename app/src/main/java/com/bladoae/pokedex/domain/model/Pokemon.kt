@@ -40,3 +40,6 @@ fun PokemonEntity.toPokemon() = Pokemon(
     sprites?.fromEntityToSprites(),
     types?.fromEntityToTypeList()
 )
+
+fun List<PokemonEntity>.fromListEntityToPokemonList() =
+    map(PokemonEntity::toPokemon)

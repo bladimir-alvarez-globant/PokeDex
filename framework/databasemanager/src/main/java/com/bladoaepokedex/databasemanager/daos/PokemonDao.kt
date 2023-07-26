@@ -16,7 +16,7 @@ interface PokemonDao {
     @Query("DELETE FROM pokemon")
     fun deletePokemon(): Int
 
-    @Query("SELECT * FROM pokemon WHERE name == :name")
+    @Query("SELECT * FROM pokemon WHERE name LIKE '%' || :name || '%'")
     suspend fun selectPokemon(name: String): List<PokemonEntity>
 
 }

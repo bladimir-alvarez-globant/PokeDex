@@ -4,6 +4,8 @@ import com.bladoae.pokedex.BuildConfig
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
 import com.bladoae.pokedex.data.apiservice.PokeDexApiServiceImp
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
+import com.bladoae.pokedex.domain.usecase.GetEffectsUseCase
+import com.bladoae.pokedex.domain.usecase.GetEffectsUseCaseImpl
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCase
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCaseImpl
 import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCase
@@ -64,6 +66,15 @@ object AppModule {
         dispatcher: CoroutineContext
     ): GetPokemonByNameUseCase {
         return GetPokemonByNameUseCaseImpl(pokeDexRepository, dispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetEffectsUseCaseImpl(
+        pokeDexRepository: PokeDexRepository,
+        dispatcher: CoroutineContext
+    ): GetEffectsUseCase {
+        return GetEffectsUseCaseImpl(pokeDexRepository, dispatcher)
     }
 
 }

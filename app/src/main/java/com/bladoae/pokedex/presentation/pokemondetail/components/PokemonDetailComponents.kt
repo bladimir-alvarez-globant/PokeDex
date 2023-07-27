@@ -23,7 +23,7 @@ fun ItemDetail(label: String, text: String) {
 fun TextItemDetail(text: String) {
     Text(
         text = text,
-        modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 2.dp)
+        modifier = Modifier.padding(5.dp, 0.dp, 0.dp, 0.dp)
     )
 }
 

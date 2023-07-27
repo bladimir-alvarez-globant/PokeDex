@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import com.bladoae.pokedex.R
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.domain.model.Pokemon
 import com.bladoae.pokedex.presentation.pokemondetail.PokemonDetailActivity
@@ -43,10 +44,10 @@ class PokemonListActivity : ComponentActivity() {
     private fun handlePokemonList(resource: Resource<List<Pokemon?>?>) {
         when(resource) {
             is Resource.Error -> {
-                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
             }
             is Resource.Loading -> {
-                Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.loading), Toast.LENGTH_SHORT).show()
             }
             is Resource.Success -> {
                 resource.data?.let { data ->

@@ -2,8 +2,10 @@ package com.bladoae.pokedex.data.repository
 
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
+import com.bladoae.pokedex.domain.model.Effect
 import com.bladoae.pokedex.domain.model.Pokemon
 import com.bladoae.pokedex.domain.model.fromListEntityToPokemonList
+import com.bladoae.pokedex.domain.model.toEffect
 import com.bladoae.pokedex.domain.model.toPokemon
 import com.bladoae.pokedex.domain.model.toPokemonEntityList
 import com.bladoae.pokedex.domain.model.toPokemonList
@@ -70,6 +72,24 @@ class PokeDexRepositoryImp @Inject constructor(
                 null
             }
             emit(pokemon)
+        }.flowOn(dispatcher)
+    }
+
+    override suspend fun getEffects(id: Int): Flow<Resource<Effect>> {
+        return flow {
+            pokeDexApiService.getEffects(id)
+                .map { response ->
+                    if(response is Resource.Success) {
+                        return@map Resource.Success(
+                            data = response.data?.toEffect() ?: Effect()
+                        )
+                    } else {
+                        return@map Resource.Error<Effect>(response.message ?: "")
+                    }
+                }
+                .collect {
+                    emit(it)
+                }
         }.flowOn(dispatcher)
     }
 }

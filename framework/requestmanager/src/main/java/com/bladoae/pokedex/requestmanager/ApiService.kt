@@ -1,5 +1,6 @@
 package com.bladoae.pokedex.requestmanager
 
+import com.bladoae.pokedex.requestmanager.model.EffectDto
 import com.bladoae.pokedex.requestmanager.model.PokemonListResponse
 import com.bladoae.pokedex.requestmanager.model.PokemonDto
 import retrofit2.http.GET
@@ -15,4 +16,7 @@ interface ApiService {
 
     @GET("pokemon/{name}")
     suspend fun getPokemonDetail(@Path("name") name: String): PokemonDto
+
+    @GET("ability/{id}")
+    suspend fun getEffects(@Path("id") id: Int): EffectDto
 }

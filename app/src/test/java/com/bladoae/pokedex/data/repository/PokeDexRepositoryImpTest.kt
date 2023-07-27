@@ -5,15 +5,20 @@ import com.bladoae.pokedex.base.test.MainCoroutineRule
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
 import com.bladoae.pokedex.domain.model.Ability
+import com.bladoae.pokedex.domain.model.Effect
 import com.bladoae.pokedex.domain.model.Pokemon
 import com.bladoae.pokedex.domain.model.Sprites
 import com.bladoae.pokedex.domain.model.Type
 import com.bladoae.pokedex.domain.model.fromListEntityToPokemonList
+import com.bladoae.pokedex.domain.model.toEffect
 import com.bladoae.pokedex.domain.model.toPokemon
 import com.bladoae.pokedex.domain.model.toPokemonEntityList
 import com.bladoae.pokedex.domain.model.toPokemonList
 import com.bladoae.pokedex.requestmanager.model.AbilityDetailDto
 import com.bladoae.pokedex.requestmanager.model.AbilityDto
+import com.bladoae.pokedex.requestmanager.model.EffectDto
+import com.bladoae.pokedex.requestmanager.model.EffectEntriesDto
+import com.bladoae.pokedex.requestmanager.model.LanguageDto
 import com.bladoae.pokedex.requestmanager.model.PokemonDto
 import com.bladoae.pokedex.requestmanager.model.PokemonListResponse
 import com.bladoae.pokedex.requestmanager.model.SpritesDto
@@ -260,6 +265,39 @@ class PokeDexRepositoryImpTest {
             "Name must be $name.",
             actualResponse.first()?.name,
             name
+        )
+    }
+
+    @Test
+    fun `when get effects response is success`() = runBlocking {
+        val id = 100
+        val expectedResponse = Resource.Success(
+            EffectDto(
+                listOf(
+                    EffectEntriesDto(
+                        effect = "Something",
+                        language = LanguageDto(
+                            "en"
+                        )
+                    )
+                )
+            )
+        )
+
+        coEvery {
+            pokeDexApiService.getEffects(id)
+        } returns flowOf(expectedResponse)
+
+        var actualResponse = Effect()
+        launch(dispatcher) {
+            pokeDexRepositoryImp.getEffects(id)
+                .collect { response -> response.data?.let { data -> actualResponse = data } }
+        }
+
+        coVerify(exactly = 1) { pokeDexApiService.getEffects(id) }
+        assertEquals(
+            expectedResponse.data?.toEffect(),
+            actualResponse
         )
     }
 

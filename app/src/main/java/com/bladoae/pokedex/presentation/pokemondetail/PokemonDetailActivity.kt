@@ -131,6 +131,7 @@ fun PokemonDetailScreen(pokemon: Pokemon, description: String) {
 
         ItemDetail(label = stringResource(R.string.weight_label), text = String.format(stringResource(R.string.weight_description, pokemon.weight ?: 0)))
         ItemDetail(label = stringResource(R.string.height_label), text = String.format(stringResource(R.string.height_description, pokemon.height ?: 0)))
+        ItemDetail(label = stringResource(R.string.type_label), text = "${pokemon.types?.map { it.name?.replaceFirstChar { type -> type.uppercase() } }?.joinToString()}")
         ItemDetail(label = stringResource(R.string.abilities_label), text = "${pokemon.abilities?.map { it.name?.replaceFirstChar { name -> name.uppercase() } }?.joinToString()}")
     }
 }

@@ -1,4 +1,4 @@
-package com.bladoae.pokedex.domain.model
+package com.bladoae.pokedex.domain.model.detail
 
 import com.bladoae.pokedex.requestmanager.model.LanguageDto
 

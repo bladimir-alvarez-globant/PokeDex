@@ -3,15 +3,11 @@ package com.bladoae.pokedex.domain
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bladoae.pokedex.base.test.MainCoroutineRule
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.domain.model.Ability
-import com.bladoae.pokedex.domain.model.Effect
-import com.bladoae.pokedex.domain.model.EffectEntries
-import com.bladoae.pokedex.domain.model.Language
-import com.bladoae.pokedex.domain.model.Pokemon
-import com.bladoae.pokedex.domain.model.Sprites
-import com.bladoae.pokedex.domain.model.Type
+import com.bladoae.pokedex.domain.model.detail.Effect
+import com.bladoae.pokedex.domain.model.detail.EffectEntries
+import com.bladoae.pokedex.domain.model.detail.Language
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
-import com.bladoae.pokedex.domain.usecase.GetEffectsUseCaseImpl
+import com.bladoae.pokedex.domain.usecase.GetPokemonDetailUseCaseImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -24,13 +20,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class GetEffectsUseCaseImplTest {
+class GetPokemonDetailUseCaseImplTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -38,7 +33,7 @@ class GetEffectsUseCaseImplTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var getEffectsUseCaseImpl: GetEffectsUseCaseImpl
+    private lateinit var getPokemonDetailUseCaseImpl: GetPokemonDetailUseCaseImpl
 
     @MockK
     private lateinit var pokeDexRepository: PokeDexRepository
@@ -48,7 +43,7 @@ class GetEffectsUseCaseImplTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        getEffectsUseCaseImpl = GetEffectsUseCaseImpl(pokeDexRepository, dispatcher)
+        getPokemonDetailUseCaseImpl = GetPokemonDetailUseCaseImpl(pokeDexRepository, dispatcher)
     }
 
     @After
@@ -78,7 +73,7 @@ class GetEffectsUseCaseImplTest {
 
         var actualResponse = Effect()
         launch(dispatcher) {
-            getEffectsUseCaseImpl(id)
+            getPokemonDetailUseCaseImpl(id)
                 .collect { response -> actualResponse = response.data ?: Effect() }
         }
 

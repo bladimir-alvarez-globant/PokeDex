@@ -1,4 +1,4 @@
-package com.bladoae.pokedex.domain.model
+package com.bladoae.pokedex.domain.model.pokemon
 
 import android.os.Parcelable
 import com.bladoae.pokedex.requestmanager.model.PokemonDto

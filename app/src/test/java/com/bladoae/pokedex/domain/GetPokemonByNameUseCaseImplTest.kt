@@ -2,10 +2,10 @@ package com.bladoae.pokedex.domain
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bladoae.pokedex.base.test.MainCoroutineRule
-import com.bladoae.pokedex.domain.model.Ability
-import com.bladoae.pokedex.domain.model.Pokemon
-import com.bladoae.pokedex.domain.model.Sprites
-import com.bladoae.pokedex.domain.model.Type
+import com.bladoae.pokedex.domain.model.pokemon.Ability
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Sprites
+import com.bladoae.pokedex.domain.model.pokemon.Type
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCaseImpl
 import io.mockk.MockKAnnotations
@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

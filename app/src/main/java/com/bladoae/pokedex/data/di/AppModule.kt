@@ -6,6 +6,8 @@ import com.bladoae.pokedex.data.apiservice.PokeDexApiServiceImp
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
 import com.bladoae.pokedex.domain.usecase.GetEffectsUseCase
 import com.bladoae.pokedex.domain.usecase.GetEffectsUseCaseImpl
+import com.bladoae.pokedex.domain.usecase.GetEncountersUseCase
+import com.bladoae.pokedex.domain.usecase.GetEncountersUseCaseImpl
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCase
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCaseImpl
 import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCase
@@ -61,7 +63,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGetPokemonByNameUseCaseImpl(
+    fun provideGetPokemonByNameUseCase(
         pokeDexRepository: PokeDexRepository,
         dispatcher: CoroutineContext
     ): GetPokemonByNameUseCase {
@@ -70,11 +72,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGetEffectsUseCaseImpl(
+    fun provideGetEffectsUseCase(
         pokeDexRepository: PokeDexRepository,
         dispatcher: CoroutineContext
     ): GetEffectsUseCase {
         return GetEffectsUseCaseImpl(pokeDexRepository, dispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetEncountersUseCase(
+        pokeDexRepository: PokeDexRepository,
+        dispatcher: CoroutineContext
+    ): GetEncountersUseCase {
+        return GetEncountersUseCaseImpl(pokeDexRepository, dispatcher)
     }
 
 }

@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bladoae.pokedex.R
-import com.bladoae.pokedex.domain.model.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 

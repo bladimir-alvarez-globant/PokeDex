@@ -16,22 +16,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bladoae.pokedex.R
-import com.bladoae.pokedex.common.LANGUAGE
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.domain.model.Ability
-import com.bladoae.pokedex.domain.model.Effect
-import com.bladoae.pokedex.domain.model.Pokemon
-import com.bladoae.pokedex.domain.model.Sprites
-import com.bladoae.pokedex.domain.model.Type
+import com.bladoae.pokedex.domain.model.detail.Effect
+import com.bladoae.pokedex.domain.model.encounter.Encounter
+import com.bladoae.pokedex.domain.model.pokemon.Ability
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Sprites
+import com.bladoae.pokedex.domain.model.pokemon.Type
 import com.bladoae.pokedex.presentation.pokemondetail.components.ItemDetail
-import com.bladoae.pokedex.presentation.pokemonlist.PokemonListActivity
 import com.bladoae.pokedex.presentation.theme.ComposePokeDexTheme
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -58,6 +56,7 @@ class PokemonDetailActivity : ComponentActivity() {
         )
 
         pokemonDetailViewModel.effect.observe(this, ::handleEffect)
+        pokemonDetailViewModel.encounters.observe(this, ::handleEncounters)
 
         pokemon?.let { data ->
             pokemonDetailViewModel.getEffects(data.id)
@@ -70,20 +69,32 @@ class PokemonDetailActivity : ComponentActivity() {
                 Toast.makeText(this, getString(R.string.loading), Toast.LENGTH_SHORT).show()
             }
             is Resource.Success -> {
-                resource.data?.let { effect ->
-                    setupContent(effect)
+                setupContent(pokemonDetailViewModel.effectDescription)
+                pokemon?.let { data ->
+                    pokemonDetailViewModel.getEncounters(data.id)
                 }
             }
             else -> Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setupContent(effect: Effect) {
+    private fun handleEncounters(resource: Resource<List<Encounter>>?) {
+        when(resource) {
+            is Resource.Loading -> {
+                Toast.makeText(this, getString(R.string.loading), Toast.LENGTH_SHORT).show()
+            }
+            is Resource.Success -> {
+                setupContent(pokemonDetailViewModel.effectDescription, pokemonDetailViewModel.encountersDescription)
+            }
+            else -> Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupContent(effect: String, encounters: String? = null) {
         setContent {
             ComposePokeDexTheme {
                 pokemon?.let { data ->
-                    val description = effect.effectEntries?.find { it.language?.name == LANGUAGE }?.effect ?: ""
-                    PokemonDetailScreen(data, description)
+                    PokemonDetailScreen(data, effect, encounters)
                 }
             }
         }
@@ -93,7 +104,7 @@ class PokemonDetailActivity : ComponentActivity() {
 
 @ExperimentalGlideComposeApi
 @Composable
-fun PokemonDetailScreen(pokemon: Pokemon, description: String) {
+fun PokemonDetailScreen(pokemon: Pokemon, description: String, encounters: String? = null) {
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -140,6 +151,9 @@ fun PokemonDetailScreen(pokemon: Pokemon, description: String) {
         ItemDetail(label = stringResource(R.string.type_label), text = "${pokemon.types?.map { it.name?.replaceFirstChar { type -> type.uppercase() } }?.joinToString()}")
         pokemon.abilities?.let { abilities ->
             ItemDetail(label = stringResource(R.string.abilities_label), text = abilities.map { it.name?.replaceFirstChar { name -> name.uppercase() } }.joinToString())
+        }
+        if(!encounters.isNullOrEmpty()) {
+            ItemDetail(label = stringResource(R.string.encounters_label), text = encounters)
         }
     }
 }

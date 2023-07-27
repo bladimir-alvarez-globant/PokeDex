@@ -2,13 +2,15 @@ package com.bladoae.pokedex.data.repository
 
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
-import com.bladoae.pokedex.domain.model.Effect
-import com.bladoae.pokedex.domain.model.Pokemon
-import com.bladoae.pokedex.domain.model.fromListEntityToPokemonList
-import com.bladoae.pokedex.domain.model.toEffect
-import com.bladoae.pokedex.domain.model.toPokemon
-import com.bladoae.pokedex.domain.model.toPokemonEntityList
-import com.bladoae.pokedex.domain.model.toPokemonList
+import com.bladoae.pokedex.domain.model.detail.Effect
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
+import com.bladoae.pokedex.domain.model.encounter.Encounter
+import com.bladoae.pokedex.domain.model.encounter.toEncounterList
+import com.bladoae.pokedex.domain.model.pokemon.fromListEntityToPokemonList
+import com.bladoae.pokedex.domain.model.detail.toEffect
+import com.bladoae.pokedex.domain.model.pokemon.toPokemon
+import com.bladoae.pokedex.domain.model.pokemon.toPokemonEntityList
+import com.bladoae.pokedex.domain.model.pokemon.toPokemonList
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
 import com.bladoaepokedex.databasemanager.daos.PokemonDao
 import javax.inject.Inject
@@ -85,6 +87,24 @@ class PokeDexRepositoryImp @Inject constructor(
                         )
                     } else {
                         return@map Resource.Error<Effect>(response.message ?: "")
+                    }
+                }
+                .collect {
+                    emit(it)
+                }
+        }.flowOn(dispatcher)
+    }
+
+    override suspend fun getEncounters(id: Int): Flow<Resource<List<Encounter>>> {
+        return flow {
+            pokeDexApiService.getEncounters(id)
+                .map { response ->
+                    if(response is Resource.Success) {
+                        return@map Resource.Success(
+                            data = response.data?.toEncounterList() ?: listOf()
+                        )
+                    } else {
+                        return@map Resource.Error<List<Encounter>>(response.message ?: "")
                     }
                 }
                 .collect {

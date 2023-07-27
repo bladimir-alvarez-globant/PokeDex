@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="loading">Loading</string>
+    <string name="error">Error</string>
+    <string name="information">Information</string>
+
+    <string name="weight_label">Weight:</string>
+    <string name="weight_description">%1s KG</string>
+
+    <string name="height_label">Height:</string>
+    <string name="height_description">%1s M</string>
+
+    <string name="abilities_label">Abilities:</string>
+
+    <string name="find_your_favorite_pokemon">Find your favorite pokemon</string>
 </resources>

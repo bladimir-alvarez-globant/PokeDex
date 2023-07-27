@@ -20,5 +20,7 @@ data class PokemonEntity(
     @Json(name = "sprites")
     val sprites: SpritesEntity? = null,
     @Json(name = "types")
-    val types: List<TypeEntity>? = null
+    val types: List<TypeEntity>? = null,
+    val weight: Int? = null,
+    val height: Int? = null
 ) : Parcelable

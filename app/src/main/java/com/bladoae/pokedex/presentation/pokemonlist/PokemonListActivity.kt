@@ -1,5 +1,6 @@
 package com.bladoae.pokedex.presentation.pokemonlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -8,8 +9,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import com.bladoae.pokedex.R
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.domain.model.Pokemon
+import com.bladoae.pokedex.presentation.pokemondetail.PokemonDetailActivity
 import com.bladoae.pokedex.presentation.pokemonlist.components.ListPokemon
 import com.bladoae.pokedex.presentation.pokemonlist.components.SearchBox
 import com.bladoae.pokedex.presentation.theme.ComposePokeDexTheme
@@ -41,10 +44,10 @@ class PokemonListActivity : ComponentActivity() {
     private fun handlePokemonList(resource: Resource<List<Pokemon?>?>) {
         when(resource) {
             is Resource.Error -> {
-                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
             }
             is Resource.Loading -> {
-                Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.loading), Toast.LENGTH_SHORT).show()
             }
             is Resource.Success -> {
                 resource.data?.let { data ->
@@ -61,7 +64,12 @@ class PokemonListActivity : ComponentActivity() {
     }
 
     private fun onSelectPokemon(pokemon: Pokemon) {
-        Toast.makeText(this, pokemon.name, Toast.LENGTH_SHORT).show()
+        startActivity(
+            Intent(this, PokemonDetailActivity::class.java)
+                .apply {
+                    putExtra(PokemonDetailActivity.POKEMON, pokemon)
+                }
+        )
     }
 
     private fun setupContent(items: List<Pokemon>) {

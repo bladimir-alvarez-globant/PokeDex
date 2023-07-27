@@ -2,6 +2,7 @@ package com.bladoae.pokedex.data.apiservice
 
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.requestmanager.ApiService
+import com.bladoae.pokedex.requestmanager.model.EffectDto
 import com.bladoae.pokedex.requestmanager.model.PokemonListResponse
 import com.bladoae.pokedex.requestmanager.model.PokemonDto
 import javax.inject.Inject
@@ -21,6 +22,13 @@ class PokeDexApiServiceImp @Inject constructor(
     override suspend fun getPokemonDetail(name: String): Flow<Resource<PokemonDto>> {
         return flow {
             val response = service.getPokemonDetail(name)
+            emit(Resource.Success(response))
+        }
+    }
+
+    override suspend fun getEffects(id: Int): Flow<Resource<EffectDto>> {
+        return flow {
+            val response = service.getEffects(id)
             emit(Resource.Success(response))
         }
     }

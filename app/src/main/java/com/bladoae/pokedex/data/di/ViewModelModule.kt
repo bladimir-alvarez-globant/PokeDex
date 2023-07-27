@@ -1,7 +1,9 @@
 package com.bladoae.pokedex.data.di
 
+import com.bladoae.pokedex.domain.usecase.GetEffectsUseCaseImpl
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCase
 import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCase
+import com.bladoae.pokedex.presentation.pokemondetail.PokemonDetailViewModel
 import com.bladoae.pokedex.presentation.pokemonlist.PokemonListViewModel
 import dagger.Module
 import dagger.Provides
@@ -19,6 +21,15 @@ object ViewModelModule {
         return PokemonListViewModel(
             getPokemonDetailedListUseCaseImpl,
             getPokemonByNameUseCase
+        )
+    }
+
+    @Provides
+    fun providePokemonDetailViewModel(
+        getEffectsUseCase: GetEffectsUseCaseImpl
+    ): PokemonDetailViewModel {
+        return PokemonDetailViewModel(
+            getEffectsUseCase
         )
     }
 }

@@ -5,5 +5,7 @@ data class PokemonDto(
     val name: String? = null,
     val abilities: List<AbilityDto>? = null,
     val sprites: SpritesDto? = null,
-    val types: List<TypeDto>? = null
+    val types: List<TypeDto>? = null,
+    val weight: Int? = null,
+    val height: Int? = null
 )

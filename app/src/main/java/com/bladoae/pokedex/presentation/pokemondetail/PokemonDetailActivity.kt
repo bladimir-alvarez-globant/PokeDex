@@ -31,6 +31,7 @@ import com.bladoae.pokedex.domain.model.Pokemon
 import com.bladoae.pokedex.domain.model.Sprites
 import com.bladoae.pokedex.domain.model.Type
 import com.bladoae.pokedex.presentation.pokemondetail.components.ItemDetail
+import com.bladoae.pokedex.presentation.pokemonlist.PokemonListActivity
 import com.bladoae.pokedex.presentation.theme.ComposePokeDexTheme
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -98,14 +99,17 @@ fun PokemonDetailScreen(pokemon: Pokemon, description: String) {
             .padding(10.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        GlideImage(
-            model = pokemon.sprites?.frontDefault,
-            contentDescription = "pokemon",
-            modifier = Modifier
-                .padding(0.dp, 10.dp)
-                .defaultMinSize(150.dp, 150.dp)
-                .fillMaxWidth(),
-        )
+        pokemon.sprites?.frontDefault?.let { image ->
+            GlideImage(
+                model = image,
+                contentDescription = "pokemon",
+                modifier = Modifier
+                    .padding(0.dp, 10.dp)
+                    .defaultMinSize(150.dp, 150.dp)
+                    .fillMaxWidth(),
+            )
+        }
+
         Text(
             text = pokemon.name?.replaceFirstChar { it.uppercase() } ?: "",
             modifier = Modifier
@@ -123,16 +127,20 @@ fun PokemonDetailScreen(pokemon: Pokemon, description: String) {
                 .padding(0.dp, 5.dp, 0.dp, 0.dp)
         )
 
-        Text(
-            text = description.replaceFirstChar { it.uppercase() },
-            modifier = Modifier
-                .padding(0.dp, 10.dp, 0.dp, 5.dp)
-        )
+        if(description.isNotEmpty()) {
+            Text(
+                text = description.replaceFirstChar { it.uppercase() },
+                modifier = Modifier
+                    .padding(0.dp, 10.dp, 0.dp, 5.dp)
+            )
+        }
 
         ItemDetail(label = stringResource(R.string.weight_label), text = String.format(stringResource(R.string.weight_description, pokemon.weight ?: 0)))
         ItemDetail(label = stringResource(R.string.height_label), text = String.format(stringResource(R.string.height_description, pokemon.height ?: 0)))
         ItemDetail(label = stringResource(R.string.type_label), text = "${pokemon.types?.map { it.name?.replaceFirstChar { type -> type.uppercase() } }?.joinToString()}")
-        ItemDetail(label = stringResource(R.string.abilities_label), text = "${pokemon.abilities?.map { it.name?.replaceFirstChar { name -> name.uppercase() } }?.joinToString()}")
+        pokemon.abilities?.let { abilities ->
+            ItemDetail(label = stringResource(R.string.abilities_label), text = abilities.map { it.name?.replaceFirstChar { name -> name.uppercase() } }.joinToString())
+        }
     }
 }
 

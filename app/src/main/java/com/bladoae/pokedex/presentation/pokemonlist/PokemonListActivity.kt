@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -63,7 +64,8 @@ class PokemonListActivity : ComponentActivity() {
         pokemonListViewModel.getPokemonByName(value)
     }
 
-    private fun onSelectPokemon(pokemon: Pokemon) {
+    @VisibleForTesting
+    fun onSelectPokemon(pokemon: Pokemon) {
         startActivity(
             Intent(this, PokemonDetailActivity::class.java)
                 .apply {

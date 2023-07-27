@@ -1,5 +1,6 @@
 package com.bladoae.pokedex.presentation.pokemonlist.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -124,8 +125,9 @@ fun ItemPokemon(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF9BEFC4)
+            containerColor = Color.White
         ),
+        border = BorderStroke(2.dp, Color.Gray),
         onClick = { selectPokemon.invoke(pokemon) }
     ) {
         Column(

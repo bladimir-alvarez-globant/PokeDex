@@ -1,11 +1,14 @@
 package com.bladoae.pokedex.domain.model
 
+import android.os.Parcelable
 import com.bladoae.pokedex.requestmanager.model.TypeDto
 import com.bladoaepokedex.databasemanager.entities.TypeEntity
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Type(
     val name: String? = null
-)
+) : Parcelable
 
 fun TypeDto.toType() = Type(
     name = type?.name

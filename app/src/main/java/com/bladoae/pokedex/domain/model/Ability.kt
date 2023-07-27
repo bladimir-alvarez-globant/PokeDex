@@ -1,11 +1,14 @@
 package com.bladoae.pokedex.domain.model
 
+import android.os.Parcelable
 import com.bladoae.pokedex.requestmanager.model.AbilityDto
 import com.bladoaepokedex.databasemanager.entities.AbilityEntity
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Ability(
     val name: String? = null
-)
+) : Parcelable
 
 fun AbilityDto.toAbility() = Ability(
     name = ability?.name

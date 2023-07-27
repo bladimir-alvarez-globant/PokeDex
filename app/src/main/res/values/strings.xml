@@ -13,4 +13,6 @@
     <string name="abilities_label">Abilities:</string>
 
     <string name="find_your_favorite_pokemon">Find your favorite pokemon</string>
+
+    <string name="type_label">Type:</string>
 </resources>

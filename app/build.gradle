@@ -83,6 +83,7 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     androidTestImplementation "androidx.test.espresso:espresso-idling-resource:3.5.1"
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
     // LiveData

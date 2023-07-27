@@ -59,7 +59,7 @@ fun SearchBox(
                 elevation = 10.dp,
                 shape = RoundedCornerShape(8.dp)
             ),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         // TextField placed within the Box
         val defaultText = stringResource(R.string.find_your_favorite_pokemon)
@@ -77,7 +77,7 @@ fun SearchBox(
                 ) {
                     Icon(
                         Icons.Rounded.Search,
-                        contentDescription = "",
+                        contentDescription = "searchIcon",
                         Modifier
                             .padding(2.dp, 0.dp)
                             .size(20.dp),

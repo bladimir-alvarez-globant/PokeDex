@@ -31,6 +31,7 @@ import com.bladoae.pokedex.domain.model.Pokemon
 import com.bladoae.pokedex.domain.model.Sprites
 import com.bladoae.pokedex.domain.model.Type
 import com.bladoae.pokedex.presentation.pokemondetail.components.ItemDetail
+import com.bladoae.pokedex.presentation.pokemonlist.PokemonListActivity
 import com.bladoae.pokedex.presentation.theme.ComposePokeDexTheme
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage

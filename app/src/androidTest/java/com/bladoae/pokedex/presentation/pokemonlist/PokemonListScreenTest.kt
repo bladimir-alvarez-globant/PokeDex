@@ -15,10 +15,10 @@ import androidx.test.espresso.intent.Intents.release
 import androidx.test.espresso.intent.Intents.times
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bladoae.pokedex.domain.model.Ability
-import com.bladoae.pokedex.domain.model.Pokemon
-import com.bladoae.pokedex.domain.model.Sprites
-import com.bladoae.pokedex.domain.model.Type
+import com.bladoae.pokedex.domain.model.pokemon.Ability
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Sprites
+import com.bladoae.pokedex.domain.model.pokemon.Type
 import com.bladoae.pokedex.presentation.CountingIdlingResourceSingleton
 import com.bladoae.pokedex.presentation.pokemondetail.PokemonDetailActivity
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi

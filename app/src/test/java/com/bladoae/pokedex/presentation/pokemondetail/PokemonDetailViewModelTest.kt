@@ -3,10 +3,13 @@ package com.bladoae.pokedex.presentation.pokemondetail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bladoae.pokedex.base.test.MainCoroutineRule
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.domain.model.Effect
-import com.bladoae.pokedex.domain.model.EffectEntries
-import com.bladoae.pokedex.domain.model.Language
+import com.bladoae.pokedex.domain.model.detail.Effect
+import com.bladoae.pokedex.domain.model.detail.EffectEntries
+import com.bladoae.pokedex.domain.model.detail.Language
+import com.bladoae.pokedex.domain.model.encounter.Encounter
+import com.bladoae.pokedex.domain.model.encounter.LocationArea
 import com.bladoae.pokedex.domain.usecase.GetEffectsUseCase
+import com.bladoae.pokedex.domain.usecase.GetEncountersUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -35,11 +38,15 @@ class PokemonDetailViewModelTest {
     @MockK
     private lateinit var getEffectsUseCase: GetEffectsUseCase
 
+    @MockK
+    private lateinit var getEncountersUseCase: GetEncountersUseCase
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
         viewModel = PokemonDetailViewModel(
-            getEffectsUseCase
+            getEffectsUseCase,
+            getEncountersUseCase
         )
     }
 
@@ -72,6 +79,31 @@ class PokemonDetailViewModelTest {
         viewModel.effect.observeForever {}
 
         val actualResponse = viewModel.effect.value
+
+        TestCase.assertEquals(expectedResponse.data, actualResponse?.data)
+    }
+
+    @Test
+    fun `when get encounters response is success`() = runBlockingTest {
+        val id = 100
+        val expectedResponse = Resource.Success(
+            listOf(
+                Encounter(
+                    LocationArea(
+                        "National Park"
+                    )
+                )
+            )
+        )
+
+        coEvery {
+            getEncountersUseCase(id)
+        } returns flowOf(expectedResponse)
+
+        viewModel.getEncounters(id)
+        viewModel.encounters.observeForever {}
+
+        val actualResponse = viewModel.encounters.value
 
         TestCase.assertEquals(expectedResponse.data, actualResponse?.data)
     }

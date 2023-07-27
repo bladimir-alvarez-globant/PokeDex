@@ -12,7 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import com.bladoae.pokedex.R
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.domain.model.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
 import com.bladoae.pokedex.presentation.pokemondetail.PokemonDetailActivity
 import com.bladoae.pokedex.presentation.pokemonlist.components.ListPokemon
 import com.bladoae.pokedex.presentation.pokemonlist.components.SearchBox

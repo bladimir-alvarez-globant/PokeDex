@@ -3,10 +3,10 @@ package com.bladoae.pokedex.presentation.pokemonlist
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bladoae.pokedex.base.test.MainCoroutineRule
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.domain.model.Ability
-import com.bladoae.pokedex.domain.model.Pokemon
-import com.bladoae.pokedex.domain.model.Sprites
-import com.bladoae.pokedex.domain.model.Type
+import com.bladoae.pokedex.domain.model.pokemon.Ability
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Sprites
+import com.bladoae.pokedex.domain.model.pokemon.Type
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCase
 import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCase
 import io.mockk.MockKAnnotations

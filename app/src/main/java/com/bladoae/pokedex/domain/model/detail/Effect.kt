@@ -1,6 +1,6 @@
-package com.bladoae.pokedex.domain.model
+package com.bladoae.pokedex.domain.model.detail
 
-import com.bladoae.pokedex.requestmanager.model.EffectDto
+import com.bladoae.pokedex.requestmanager.model.detail.EffectDto
 
 data class Effect(
     val effectEntries: List<EffectEntries>? = null

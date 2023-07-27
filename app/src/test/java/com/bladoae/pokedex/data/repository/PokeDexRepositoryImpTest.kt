@@ -4,26 +4,30 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bladoae.pokedex.base.test.MainCoroutineRule
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.data.apiservice.PokeDexApiService
-import com.bladoae.pokedex.domain.model.Ability
-import com.bladoae.pokedex.domain.model.Effect
-import com.bladoae.pokedex.domain.model.Pokemon
-import com.bladoae.pokedex.domain.model.Sprites
-import com.bladoae.pokedex.domain.model.Type
-import com.bladoae.pokedex.domain.model.fromListEntityToPokemonList
-import com.bladoae.pokedex.domain.model.toEffect
-import com.bladoae.pokedex.domain.model.toPokemon
-import com.bladoae.pokedex.domain.model.toPokemonEntityList
-import com.bladoae.pokedex.domain.model.toPokemonList
-import com.bladoae.pokedex.requestmanager.model.AbilityDetailDto
-import com.bladoae.pokedex.requestmanager.model.AbilityDto
-import com.bladoae.pokedex.requestmanager.model.EffectDto
-import com.bladoae.pokedex.requestmanager.model.EffectEntriesDto
-import com.bladoae.pokedex.requestmanager.model.LanguageDto
-import com.bladoae.pokedex.requestmanager.model.PokemonDto
-import com.bladoae.pokedex.requestmanager.model.PokemonListResponse
-import com.bladoae.pokedex.requestmanager.model.SpritesDto
-import com.bladoae.pokedex.requestmanager.model.TypeDetailDto
-import com.bladoae.pokedex.requestmanager.model.TypeDto
+import com.bladoae.pokedex.domain.model.detail.Effect
+import com.bladoae.pokedex.domain.model.detail.toEffect
+import com.bladoae.pokedex.domain.model.encounter.Encounter
+import com.bladoae.pokedex.domain.model.encounter.toEncounterList
+import com.bladoae.pokedex.domain.model.pokemon.Ability
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Sprites
+import com.bladoae.pokedex.domain.model.pokemon.Type
+import com.bladoae.pokedex.domain.model.pokemon.fromListEntityToPokemonList
+import com.bladoae.pokedex.domain.model.pokemon.toPokemon
+import com.bladoae.pokedex.domain.model.pokemon.toPokemonEntityList
+import com.bladoae.pokedex.domain.model.pokemon.toPokemonList
+import com.bladoae.pokedex.requestmanager.model.detail.EffectDto
+import com.bladoae.pokedex.requestmanager.model.detail.EffectEntriesDto
+import com.bladoae.pokedex.requestmanager.model.detail.LanguageDto
+import com.bladoae.pokedex.requestmanager.model.encounter.EncounterDto
+import com.bladoae.pokedex.requestmanager.model.encounter.LocationAreaDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.AbilityDetailDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.AbilityDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.PokemonDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.PokemonListResponse
+import com.bladoae.pokedex.requestmanager.model.pokemon.SpritesDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.TypeDetailDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.TypeDto
 import com.bladoaepokedex.databasemanager.daos.PokemonDao
 import com.bladoaepokedex.databasemanager.entities.AbilityEntity
 import com.bladoaepokedex.databasemanager.entities.PokemonEntity
@@ -33,17 +37,13 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
-import junit.framework.TestCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.runTest
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -297,6 +297,36 @@ class PokeDexRepositoryImpTest {
         coVerify(exactly = 1) { pokeDexApiService.getEffects(id) }
         assertEquals(
             expectedResponse.data?.toEffect(),
+            actualResponse
+        )
+    }
+
+    @Test
+    fun `when get encounters response is success`() = runBlocking {
+        val id = 100
+        val expectedResponse = Resource.Success(
+            listOf(
+                EncounterDto(
+                    LocationAreaDto(
+                        "National Park"
+                    )
+                )
+            )
+        )
+
+        coEvery {
+            pokeDexApiService.getEncounters(id)
+        } returns flowOf(expectedResponse)
+
+        var actualResponse = listOf(Encounter())
+        launch(dispatcher) {
+            pokeDexRepositoryImp.getEncounters(id)
+                .collect { response -> response.data?.let { data -> actualResponse = data } }
+        }
+
+        coVerify(exactly = 1) { pokeDexApiService.getEncounters(id) }
+        assertEquals(
+            expectedResponse.data?.toEncounterList(),
             actualResponse
         )
     }

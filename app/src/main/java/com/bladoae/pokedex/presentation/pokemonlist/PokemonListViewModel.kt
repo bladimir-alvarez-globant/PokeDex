@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.domain.model.Pokemon
+import com.bladoae.pokedex.domain.model.pokemon.Pokemon
 import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCase
 import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

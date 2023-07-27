@@ -1,7 +1,7 @@
-package com.bladoae.pokedex.domain.model
+package com.bladoae.pokedex.domain.model.pokemon
 
 import android.os.Parcelable
-import com.bladoae.pokedex.requestmanager.model.TypeDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.TypeDto
 import com.bladoaepokedex.databasemanager.entities.TypeEntity
 import kotlinx.android.parcel.Parcelize
 

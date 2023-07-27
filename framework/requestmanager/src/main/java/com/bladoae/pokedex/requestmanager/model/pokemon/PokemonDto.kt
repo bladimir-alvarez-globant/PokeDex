@@ -1,4 +1,4 @@
-package com.bladoae.pokedex.requestmanager.model
+package com.bladoae.pokedex.requestmanager.model.pokemon
 
 data class PokemonDto(
     val id: Int = 0,

@@ -1,4 +1,4 @@
-package com.bladoae.pokedex.requestmanager.model
+package com.bladoae.pokedex.requestmanager.model.pokemon
 
 import com.google.gson.annotations.SerializedName
 

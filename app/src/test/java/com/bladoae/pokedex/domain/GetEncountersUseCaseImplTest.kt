@@ -3,11 +3,11 @@ package com.bladoae.pokedex.domain
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bladoae.pokedex.base.test.MainCoroutineRule
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.domain.model.detail.Effect
-import com.bladoae.pokedex.domain.model.detail.EffectEntries
-import com.bladoae.pokedex.domain.model.detail.Language
+import com.bladoae.pokedex.domain.model.encounter.Encounter
+import com.bladoae.pokedex.domain.model.encounter.LocationArea
 import com.bladoae.pokedex.domain.repository.PokeDexRepository
-import com.bladoae.pokedex.domain.usecase.GetPokemonDetailUseCaseImpl
+import com.bladoae.pokedex.domain.usecase.GetEncountersUseCase
+import com.bladoae.pokedex.domain.usecase.GetEncountersUseCaseImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -25,7 +25,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class GetPokemonDetailUseCaseImplTest {
+class GetEncountersUseCaseImplTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -33,7 +33,7 @@ class GetPokemonDetailUseCaseImplTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var getPokemonDetailUseCaseImpl: GetPokemonDetailUseCaseImpl
+    private lateinit var getEncountersUseCase: GetEncountersUseCase
 
     @MockK
     private lateinit var pokeDexRepository: PokeDexRepository
@@ -43,7 +43,7 @@ class GetPokemonDetailUseCaseImplTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        getPokemonDetailUseCaseImpl = GetPokemonDetailUseCaseImpl(pokeDexRepository, dispatcher)
+        getEncountersUseCase = GetEncountersUseCaseImpl(pokeDexRepository, dispatcher)
     }
 
     @After
@@ -52,32 +52,29 @@ class GetPokemonDetailUseCaseImplTest {
     }
 
     @Test
-    fun `when get effects response is success`() = runBlocking {
+    fun `when get encounters response is success`() = runBlocking {
         val id = 100
         val expectedResponse = Resource.Success(
-            Effect(
-                listOf(
-                    EffectEntries(
-                        effect = "Something",
-                        language = Language(
-                            "en"
-                        )
+            listOf(
+                Encounter(
+                    LocationArea(
+                        "National Park"
                     )
                 )
             )
         )
 
         coEvery {
-            pokeDexRepository.getEffects(id)
+            pokeDexRepository.getEncounters(id)
         } returns flowOf(expectedResponse)
 
-        var actualResponse = Effect()
+        var actualResponse = listOf(Encounter())
         launch(dispatcher) {
-            getPokemonDetailUseCaseImpl(id)
-                .collect { response -> actualResponse = response.data ?: Effect() }
+            getEncountersUseCase(id)
+                .collect { response -> actualResponse = response.data ?: listOf(Encounter()) }
         }
 
-        coVerify(exactly = 1) { pokeDexRepository.getEffects(id) }
+        coVerify(exactly = 1) { pokeDexRepository.getEncounters(id) }
         TestCase.assertEquals(
             expectedResponse.data,
             actualResponse

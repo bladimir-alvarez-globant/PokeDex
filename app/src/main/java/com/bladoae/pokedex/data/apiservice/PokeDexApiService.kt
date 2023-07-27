@@ -1,9 +1,9 @@
 package com.bladoae.pokedex.data.apiservice
 
 import com.bladoae.pokedex.common.Resource
-import com.bladoae.pokedex.requestmanager.model.EffectDto
-import com.bladoae.pokedex.requestmanager.model.PokemonDto
-import com.bladoae.pokedex.requestmanager.model.PokemonListResponse
+import com.bladoae.pokedex.requestmanager.model.detail.EffectDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.PokemonDto
+import com.bladoae.pokedex.requestmanager.model.pokemon.PokemonListResponse
 import com.bladoae.pokedex.requestmanager.model.encounter.EncounterDto
 import kotlinx.coroutines.flow.Flow
 

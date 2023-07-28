@@ -1,4 +1,4 @@
-package com.bladoae.pokedex.presentation.theme
+package com.bladoae.pokedex.presentation.general.theme
 
 import androidx.compose.ui.graphics.Color
 

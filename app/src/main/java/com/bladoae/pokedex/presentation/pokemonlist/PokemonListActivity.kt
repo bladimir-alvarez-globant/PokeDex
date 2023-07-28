@@ -13,10 +13,11 @@ import androidx.compose.runtime.Composable
 import com.bladoae.pokedex.R
 import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.domain.model.pokemon.Pokemon
+import com.bladoae.pokedex.presentation.general.components.DialogBoxLoading
+import com.bladoae.pokedex.presentation.general.theme.ComposePokeDexTheme
 import com.bladoae.pokedex.presentation.pokemondetail.PokemonDetailActivity
 import com.bladoae.pokedex.presentation.pokemonlist.components.ListPokemon
 import com.bladoae.pokedex.presentation.pokemonlist.components.SearchBox
-import com.bladoae.pokedex.presentation.theme.ComposePokeDexTheme
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,7 +49,7 @@ class PokemonListActivity : ComponentActivity() {
                 Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
             }
             is Resource.Loading -> {
-                Toast.makeText(this, getString(R.string.loading), Toast.LENGTH_SHORT).show()
+                showDialog()
             }
             is Resource.Success -> {
                 resource.data?.let { data ->
@@ -82,6 +83,14 @@ class PokemonListActivity : ComponentActivity() {
                     ::onSearch,
                     ::onSelectPokemon
                 )
+            }
+        }
+    }
+
+    private fun showDialog() {
+        setContent {
+            ComposePokeDexTheme {
+                DialogBoxLoading()
             }
         }
     }

@@ -30,7 +30,7 @@ import com.bladoae.pokedex.domain.model.pokemon.Pokemon
 import com.bladoae.pokedex.domain.model.pokemon.Sprites
 import com.bladoae.pokedex.domain.model.pokemon.Type
 import com.bladoae.pokedex.presentation.pokemondetail.components.ItemDetail
-import com.bladoae.pokedex.presentation.theme.ComposePokeDexTheme
+import com.bladoae.pokedex.presentation.general.theme.ComposePokeDexTheme
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import dagger.hilt.android.AndroidEntryPoint

@@ -15,7 +15,8 @@ ext {
     compose_dependecies = [
             [configuration: "api", dependency: compose_ui],
             [configuration: "api", dependency: compose_material],
-            [configuration: "api", dependency: compose_ui_tooling]
+            [configuration: "api", dependency: compose_ui_tooling],
+            [configuration: "api", dependency: androidx_compose_runtime]
     ]
 
     glide_dependecies = [

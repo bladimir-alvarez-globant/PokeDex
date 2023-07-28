@@ -31,14 +31,11 @@ class PokemonListViewModel @Inject constructor(
         }
     }
 
-    private val _pokemon = MutableLiveData<List<Pokemon?>?>()
-    val pokemon: LiveData<List<Pokemon?>?> = _pokemon
-
     fun getPokemonByName(name: String) {
         viewModelScope.launch {
             getPokemonByNameUseCase(name)
                 .collect {
-                    _pokemon.value = it
+                    _pokemonList.value = Resource.Success(it?.filterNotNull())
                 }
         }
     }

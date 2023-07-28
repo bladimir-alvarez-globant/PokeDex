@@ -11,6 +11,7 @@ ext {
     compose_ui = "androidx.compose.ui:ui:${compose_version}"
     compose_material = "androidx.compose.material:material:${compose_version}"
     compose_ui_tooling = "androidx.compose.ui:ui-tooling:${compose_version}"
+    androidx_compose_runtime = "androidx.compose.runtime:runtime-livedata:$compose_version"
 
     // glide
     glide = "com.github.bumptech.glide:glide:${glide_version}"

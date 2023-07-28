@@ -1,4 +1,37 @@
 ext {
+    //Base presentation dependencies
+    androidx_appcompat = "androidx.appcompat:appcompat:${androidx_appcompat_version}"
+    com_google_android_material = "com.google.android.material:material:${com_google_android_material_version}"
+
+    //Base dependencies
+    androidx_core = "androidx.core:core-ktx:${androidx_core_version}"
+
+    // LifeCycle
+    lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}"
+    // LiveData
+    lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycle_version}"
+    // Lifecycles only (without ViewModel or LiveData)
+    lifecycle_runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycle_version}"
+    // Saved state module for ViewModel
+    lifecycle_viewmodel_savedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${lifecycle_version}"
+
+    //Compose
+    androidx_activity_compose = "androidx.activity:activity-compose:${androidx_activity_compose_version}"
+    androidx_compose_ui = "androidx.compose.ui:ui"
+    androidx_compose_ui_graphics = "androidx.compose.ui:ui-graphics"
+    androidx_compose_ui_tooling_preview = "androidx.compose.ui:ui-tooling-preview"
+    androidx_compose_material3 = "androidx.compose.material3:material3"
+
+    //UI tests
+    androidx_test_ext_junit = "androidx.test.ext:junit:${androidx_test_ext_junit_version}"
+    androidx_test_core = "androidx.test:core:${androidx_test_core_version}"
+    androidx_test_espresso_espresso_core = "androidx.test.espresso:espresso-core:${androidx_test_espresso_version}"
+    androidx_test_espresso_idling_resource = "androidx.test.espresso:espresso-idling-resource:${androidx_test_espresso_version}"
+    androidx_test_espresso_intents = "androidx.test.espresso:espresso-intents:${androidx_test_espresso_version}"
+    androidx_compose_ui_test_junit4 = "androidx.compose.ui:ui-test-junit4"
+    androidx_compose_ui_tooling = "androidx.compose.ui:ui-tooling"
+    androidx_compose_ui_test_manifest = "androidx.compose.ui:ui-test-manifest"
+
     // retrofit
     retrofit2 = "com.squareup.retrofit2:converter-moshi:${retrofit_version}"
     retrofit2_converter = "com.squareup.retrofit2:converter-gson:${retrofit_version}"

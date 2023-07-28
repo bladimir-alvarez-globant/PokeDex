@@ -125,15 +125,15 @@ class PokemonListViewModelTest {
         } returns flowOf(expectedResponse)
 
         viewModel.getPokemonByName(name)
-        viewModel.pokemon.observeForever {}
+        viewModel.pokemonList.observeForever {}
 
-        val actualResponse = viewModel.pokemon.value
+        val actualResponse = viewModel.pokemonList.value
 
-        assertEquals(expectedResponse, actualResponse)
+        assertEquals(expectedResponse, actualResponse?.data)
         Assert.assertEquals(
             "Name must be Pikachu",
             name,
-            actualResponse?.first()?.name,
+            actualResponse?.data?.first()?.name,
         )
     }
 

@@ -1,5 +1,6 @@
 package com.bladoae.pokedex.presentation.pokemonlist
 
+import androidx.activity.compose.setContent
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasContentDescription
@@ -75,7 +76,7 @@ class PokemonListScreenTest {
         val searchBoxDescription = "Find your favorite pokemon"
 
         // When
-        composeTestRule.setContent {
+        composeTestRule.activity.setContent {
             PokemonListScreen(pokemonList,
                 { },
                 { }
@@ -94,7 +95,7 @@ class PokemonListScreenTest {
         val searchBoxDescription = "Find your favorite pokemon"
 
         // When
-        composeTestRule.setContent {
+        composeTestRule.activity.setContent {
             PokemonListScreen(pokemonList,
                 { },
                 { }
@@ -116,7 +117,7 @@ class PokemonListScreenTest {
     @Test
     fun whenItemsAreDisplayed() {
         // When
-        composeTestRule.setContent {
+        composeTestRule.activity.setContent {
             PokemonListScreen(pokemonList,
                 { },
                 { }
@@ -136,7 +137,7 @@ class PokemonListScreenTest {
     @Test
     fun whenAItemIsSelected() {
         // When
-        composeTestRule.setContent {
+        composeTestRule.activity.setContent {
             PokemonListScreen(pokemonList,
                 { },
                 { composeTestRule.activity.onSelectPokemon(it) }

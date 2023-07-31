@@ -1,14 +1,14 @@
 package com.bladoae.pokedex.presentation.pokemonlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.bladoae.pokedex.base.common.Resource
 import com.bladoae.pokedex.base.test.MainCoroutineRule
-import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.domain.model.pokemon.Ability
 import com.bladoae.pokedex.domain.model.pokemon.Pokemon
 import com.bladoae.pokedex.domain.model.pokemon.Sprites
 import com.bladoae.pokedex.domain.model.pokemon.Type
-import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCase
-import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCase
+import com.bladoae.pokedex.domain.usecase.GetPokemonByNameUseCaseImpl
+import com.bladoae.pokedex.domain.usecase.GetPokemonDetailedListUseCaseImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -36,10 +36,10 @@ class PokemonListViewModelTest {
     private lateinit var viewModel: PokemonListViewModel
 
     @MockK
-    private lateinit var getPokemonDetailedListUseCase: GetPokemonDetailedListUseCase
+    private lateinit var getPokemonDetailedListUseCase: GetPokemonDetailedListUseCaseImpl
 
     @MockK
-    private lateinit var getPokemonByNameUseCase: GetPokemonByNameUseCase
+    private lateinit var getPokemonByNameUseCase: GetPokemonByNameUseCaseImpl
 
     @Before
     fun setUp() {

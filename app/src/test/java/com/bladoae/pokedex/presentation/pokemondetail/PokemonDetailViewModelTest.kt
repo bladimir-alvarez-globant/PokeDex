@@ -1,15 +1,15 @@
 package com.bladoae.pokedex.presentation.pokemondetail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.bladoae.pokedex.base.common.Resource
 import com.bladoae.pokedex.base.test.MainCoroutineRule
-import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.domain.model.detail.Effect
 import com.bladoae.pokedex.domain.model.detail.EffectEntries
 import com.bladoae.pokedex.domain.model.detail.Language
 import com.bladoae.pokedex.domain.model.encounter.Encounter
 import com.bladoae.pokedex.domain.model.encounter.LocationArea
-import com.bladoae.pokedex.domain.usecase.GetEffectsUseCase
-import com.bladoae.pokedex.domain.usecase.GetEncountersUseCase
+import com.bladoae.pokedex.domain.usecase.GetEffectsUseCaseImpl
+import com.bladoae.pokedex.domain.usecase.GetEncountersUseCaseImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -36,10 +36,10 @@ class PokemonDetailViewModelTest {
     private lateinit var viewModel: PokemonDetailViewModel
 
     @MockK
-    private lateinit var getEffectsUseCase: GetEffectsUseCase
+    private lateinit var getEffectsUseCase: GetEffectsUseCaseImpl
 
     @MockK
-    private lateinit var getEncountersUseCase: GetEncountersUseCase
+    private lateinit var getEncountersUseCase: GetEncountersUseCaseImpl
 
     @Before
     fun setUp() {

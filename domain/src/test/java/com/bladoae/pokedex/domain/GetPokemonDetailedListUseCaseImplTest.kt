@@ -1,8 +1,8 @@
 package com.bladoae.pokedex.domain
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.bladoae.pokedex.base.common.Resource
 import com.bladoae.pokedex.base.test.MainCoroutineRule
-import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.domain.model.pokemon.Ability
 import com.bladoae.pokedex.domain.model.pokemon.Pokemon
 import com.bladoae.pokedex.domain.model.pokemon.Sprites

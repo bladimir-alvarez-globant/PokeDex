@@ -28,9 +28,9 @@ ext {
     androidx_test_espresso_espresso_core = "androidx.test.espresso:espresso-core:${androidx_test_espresso_version}"
     androidx_test_espresso_idling_resource = "androidx.test.espresso:espresso-idling-resource:${androidx_test_espresso_version}"
     androidx_test_espresso_intents = "androidx.test.espresso:espresso-intents:${androidx_test_espresso_version}"
-    androidx_compose_ui_test_junit4 = "androidx.compose.ui:ui-test-junit4"
-    androidx_compose_ui_tooling = "androidx.compose.ui:ui-tooling"
-    androidx_compose_ui_test_manifest = "androidx.compose.ui:ui-test-manifest"
+    androidx_compose_ui_test_junit4 = "androidx.compose.ui:ui-test-junit4:${androidx_compose_ui_test_junit4_version}"
+    androidx_compose_ui_tooling = "androidx.compose.ui:ui-tooling:${androidx_compose_ui_test_junit4_version}"
+    androidx_compose_ui_test_manifest = "androidx.compose.ui:ui-test-manifest:${androidx_compose_ui_test_junit4_version}"
 
     // retrofit
     retrofit2 = "com.squareup.retrofit2:converter-moshi:${retrofit_version}"

@@ -2,6 +2,43 @@ apply from: "${rootProject.getRootDir()}/buildconfig/versions.gradle"
 apply from: "${rootProject.getRootDir()}/buildconfig/libpaths.gradle"
 
 ext {
+    base_dependencies = [
+            [configuration: "api", dependency: androidx_core]
+    ]
+
+    //Base presentation dependencies
+    base_presentation_dependencies = [
+            [configuration: "api", dependency: androidx_appcompat],
+            [configuration: "api", dependency: com_google_android_material]
+    ]
+
+    lifecycle_dependencies = [
+            [configuration: "api", dependency: lifecycle_viewmodel],
+            [configuration: "api", dependency: lifecycle_livedata],
+            [configuration: "api", dependency: lifecycle_runtime_ktx],
+            [configuration: "api", dependency: lifecycle_viewmodel_savedstate]
+    ]
+
+    compose_dependencies = [
+            [configuration: "api", dependency: androidx_activity_compose],
+            [configuration: "api", dependency: androidx_compose_ui],
+            [configuration: "api", dependency: androidx_compose_ui_graphics],
+            [configuration: "api", dependency: androidx_compose_ui_tooling_preview],
+            [configuration: "api", dependency: androidx_compose_material3]
+    ]
+
+    //UI tests
+    ui_test_dependencies = [
+            [configuration: "androidTestImplementation", dependency: androidx_test_ext_junit],
+            [configuration: "api", dependency: androidx_test_core],
+            [configuration: "androidTestImplementation", dependency: androidx_test_espresso_espresso_core],
+            [configuration: "androidTestImplementation", dependency: androidx_test_espresso_idling_resource],
+            [configuration: "androidTestImplementation", dependency: androidx_test_espresso_intents],
+            [configuration: "androidTestImplementation", dependency: androidx_compose_ui_test_junit4],
+            [configuration: "debugImplementation", dependency: androidx_compose_ui_tooling],
+            [configuration: "debugImplementation", dependency: androidx_compose_ui_test_manifest]
+    ]
+
     network_dependencies = [
             [configuration: "api", dependency: retrofit2],
             [configuration: "api", dependency: retrofit2_converter]

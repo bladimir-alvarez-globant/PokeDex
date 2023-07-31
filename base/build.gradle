@@ -45,6 +45,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    project.base_dependencies.each { item ->
+        add(item.configuration, item.dependency, item.options)
+    }
+
     project.test_dependencies.each { item ->
         add(item.configuration, item.dependency, item.options)
     }

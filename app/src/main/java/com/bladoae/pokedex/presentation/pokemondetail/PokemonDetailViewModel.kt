@@ -4,20 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bladoae.pokedex.base.common.Resource
 import com.bladoae.pokedex.common.LANGUAGE
-import com.bladoae.pokedex.common.Resource
 import com.bladoae.pokedex.domain.model.detail.Effect
 import com.bladoae.pokedex.domain.model.encounter.Encounter
-import com.bladoae.pokedex.domain.usecase.GetEffectsUseCase
-import com.bladoae.pokedex.domain.usecase.GetEncountersUseCase
+import com.bladoae.pokedex.domain.usecase.GetEffectsUseCaseImpl
+import com.bladoae.pokedex.domain.usecase.GetEncountersUseCaseImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    private val getEffectsUseCase: GetEffectsUseCase,
-    private val getEncountersUseCase: GetEncountersUseCase
+    private val getEffectsUseCase: GetEffectsUseCaseImpl,
+    private val getEncountersUseCase: GetEncountersUseCaseImpl
 ): ViewModel() {
 
     private val _effect = MutableLiveData<Resource<Effect>>()

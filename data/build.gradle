@@ -10,11 +10,11 @@ apply plugin: 'kotlin-kapt'
 apply from: "${rootProject.getRootDir()}/buildconfig/dependencies.gradle"
 
 android {
-    namespace 'com.bladoaepokedex.databasemanager'
+    namespace 'com.bladoae.pokedex.data'
     compileSdk 33
 
     defaultConfig {
-        minSdk 26
+        minSdk 23
         targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -39,19 +39,18 @@ android {
 }
 
 dependencies {
+    implementation project(':base')
+    implementation project(':framework:requestmanager')
+    implementation project(':framework:databasemanager')
+    implementation project(':domain')
+
     project.base_dependencies.each { item ->
         add(item.configuration, item.dependency, item.options)
     }
-
     project.hilt_dependecies.each { item ->
         add(item.configuration, item.dependency, item.options)
     }
-
-    project.room_dependencies.each { item ->
-        add(item.configuration, item.dependency, item.options)
-    }
-
-    project.moshi_dependencies.each { item ->
+    project.test_dependencies.each { item ->
         add(item.configuration, item.dependency, item.options)
     }
 }

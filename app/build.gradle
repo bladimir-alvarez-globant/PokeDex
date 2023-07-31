@@ -29,10 +29,8 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_BE_URL", "\"https://pokeapi.co/api/v2/\"")
         }
         release {
-            buildConfigField("String", "BASE_BE_URL", "\"https://pokeapi.co/api/v2/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -62,8 +60,8 @@ android {
 
 dependencies {
     implementation project(':base')
-    implementation project(':framework:requestmanager')
-    implementation project(':framework:databasemanager')
+    implementation project(':domain')
+    implementation project(':data')
 
     project.base_dependencies.each { item ->
         add(item.configuration, item.dependency, item.options)

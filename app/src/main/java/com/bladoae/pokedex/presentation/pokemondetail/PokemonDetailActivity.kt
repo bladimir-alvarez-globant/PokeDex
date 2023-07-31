@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bladoae.pokedex.R
-import com.bladoae.pokedex.common.Resource
+import com.bladoae.pokedex.base.common.Resource
 import com.bladoae.pokedex.domain.model.detail.Effect
 import com.bladoae.pokedex.domain.model.encounter.Encounter
 import com.bladoae.pokedex.domain.model.pokemon.Ability

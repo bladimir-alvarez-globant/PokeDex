@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import com.bladoae.pokedex.common.Resource
+import com.bladoae.pokedex.base.common.Resource
 import com.bladoae.pokedex.domain.model.pokemon.Pokemon
 import com.bladoae.pokedex.presentation.general.components.DialogBoxLoading
 import com.bladoae.pokedex.presentation.general.theme.ComposePokeDexTheme
